@@ -15,35 +15,57 @@ import prac.PersonProj.Model.Person;
 @Service
 public class PersonService {
 	
-	private final PersonDao personDao;
+//	private final PersonDao personDao;
+//	
+//	@Autowired
+//	public PersonService(@Qualifier("postgres") PersonDao personDao) {
+//		this.personDao=personDao;
+//	}
+//	
+//	public int addPerson(Person person) {
+//		return personDao.addPerson(person);
+//	}
+//	
+//	public List<Person> getAllPeople(){
+//		return personDao.selectAllPeople();
+//	}
+//	
+//	public Optional<Person> getPersonById(UUID id){
+//		return personDao.selectPersonById(id);
+//	}
+//	
+//	public int deletePerson(UUID id) {
+//		return personDao.deletePersonById(id);
+//	}
+//	
+//	public int updatePerson(UUID id, Person person) {
+//		return personDao.updatePersonById(id, person);
+//	}
 	
 	@Autowired
-	public PersonService(@Qualifier("postgres") PersonDao personDao) {
-		this.personDao=personDao;
-	}
-	
-	public int addPerson(Person person) {
-		return personDao.addPerson(person);
-	}
+	private PersonJPADao personJPADao;
 	
 	public List<Person> getAllPeople(){
-		return personDao.selectAllPeople();
+		return personJPADao.findAll();
 	}
 	
 	public Optional<Person> getPersonById(UUID id){
-		return personDao.selectPersonById(id);
+		return personJPADao.findById(id);
 	}
 	
-	public int deletePerson(UUID id) {
-		return personDao.deletePersonById(id);
+	public void addPerson(Person person) {
+		Person person1 = new Person(UUID.randomUUID(), person.getName());
+		personJPADao.save(person1);
 	}
 	
-	public int updatePerson(UUID id, Person person) {
-		return personDao.updatePersonById(id, person);
+	public void deletePerson(UUID id) {
+		personJPADao.deleteById(id);
 	}
 	
-//	@Autowired
-//	private PersonJPADao personJPADao;
-	
-	
+	public void updatePerson(UUID id, Person person) {
+		Person personToUpdate = personJPADao.getOne(id);
+		personToUpdate.setName(person.getName());
+		personJPADao.save(personToUpdate);
+	}
+
 }

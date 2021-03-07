@@ -9,9 +9,12 @@ import javax.validation.constraints.NotBlank;
 @Entity
 public class Person {
 	@Id
-	private final UUID id;
+	private UUID id;
 	@NotBlank
-	private final String name;
+	private String name;
+	
+	public Person() {}
+	
 	public Person(UUID id, String name) {
 		super();
 		this.id = id;
@@ -22,6 +25,20 @@ public class Person {
 	}
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	
