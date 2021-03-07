@@ -50,14 +50,14 @@ public class PersonDataService implements PersonDao {
 
 	@Override
 	public int deletePersonById(UUID id) {
-		final String sql = "DELETE * FROM person WHERE id = ?";
+		final String sql = "DELETE FROM person WHERE id = ?";
 		return jdbcTemplate.update(sql, id);
 	}
 
 	@Override
 	public int updatePersonById(UUID id, Person person) {
-		// TODO Auto-generated method stub
-		return 0;
+		final String sql = "UPDATE person SET name = ? WHERE id = ?";
+	        return jdbcTemplate.update(sql, person.getName(), id);
 	}
 
 }

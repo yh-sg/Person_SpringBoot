@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import prac.PersonProj.DAO.PersonDao;
+import prac.PersonProj.DAO.PersonJPADao;
 import prac.PersonProj.Model.Person;
 
 @Service
@@ -40,4 +41,9 @@ public class PersonService {
 	public int updatePerson(UUID id, Person person) {
 		return personDao.updatePersonById(id, person);
 	}
+	
+//	@Autowired
+//	private PersonJPADao personJPADao;
+	
+	
 }
