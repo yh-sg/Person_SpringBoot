@@ -14,10 +14,10 @@ import prac.PersonProj.Model.Person;
 @Service
 public class PersonService {
 	
-	@Autowired
 	private final PersonDao personDao;
 	
-	public PersonService(@Qualifier("fakeDao") PersonDao personDao) {
+	@Autowired
+	public PersonService(@Qualifier("postgres") PersonDao personDao) {
 		this.personDao=personDao;
 	}
 	
