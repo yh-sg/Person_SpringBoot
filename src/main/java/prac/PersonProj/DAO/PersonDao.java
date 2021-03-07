@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import prac.PersonProj.Model.Person;
 
-public interface PersonDao {
+public interface PersonDao{
 	
 	List<Person> selectAllPeople();
 	

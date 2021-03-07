@@ -9,15 +9,16 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import prac.PersonProj.DAO.PersonDao;
+import prac.PersonProj.DAO.PersonJPADao;
 import prac.PersonProj.Model.Person;
 
 @Service
 public class PersonService {
 	
-	@Autowired
 	private final PersonDao personDao;
 	
-	public PersonService(@Qualifier("fakeDao") PersonDao personDao) {
+	@Autowired
+	public PersonService(@Qualifier("postgres") PersonDao personDao) {
 		this.personDao=personDao;
 	}
 	
@@ -40,4 +41,9 @@ public class PersonService {
 	public int updatePerson(UUID id, Person person) {
 		return personDao.updatePersonById(id, person);
 	}
+	
+//	@Autowired
+//	private PersonJPADao personJPADao;
+	
+	
 }

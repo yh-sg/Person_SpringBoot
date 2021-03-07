@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import prac.PersonProj.Model.Person;
 import prac.PersonProj.Service.PersonService;
 
-@RequestMapping("api/v1/person")
+@RequestMapping("/person")
 @RestController
 public class PersonController {
 	
@@ -31,30 +32,28 @@ public class PersonController {
 		this.personService=personService;
 	}
 	
-	//@PostMapping
-	@RequestMapping(method = RequestMethod.POST)
-	public void addPerson(@Valid @RequestBody Person person) {
-		
-		personService.addPerson(person);
-	}
-	
 	@GetMapping
 	public List<Person> getPerson() {
 		return personService.getAllPeople();
 	}
 	
-	@GetMapping(path = "{id}")
+	@GetMapping("{id}")
 	public Person getPersonById(@PathVariable("id") UUID id) {
 		return personService.getPersonById(id)
 				.orElse(null);
 	}
 	
-	@DeleteMapping(path = "{id}")
+	@PostMapping
+	public void addPerson(@Valid @NotNull @RequestBody Person person) {
+		personService.addPerson(person);
+	}
+	
+	@DeleteMapping("{id}")
 	public void deletePersonById(@PathVariable("id") UUID id) {
 		personService.deletePerson(id);
 	}
 	
-	@PutMapping(path= "{id}")
+	@PutMapping("{id}")
 	public void updatePerson(@PathVariable("id") UUID id, @Valid @NotNull @RequestBody Person person) {
 		personService.updatePerson(id, person);
 	}
